@@ -12,6 +12,7 @@ namespace VotingAPI.Models
         [Key]
         public string GNID { get; set; }
 
+        [MaxLength(15)]
         public string FullName { get; set; }
 
         public string Password { get; set; }
