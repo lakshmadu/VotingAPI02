@@ -31,7 +31,7 @@ namespace VotingAPI.Services.Voters
 
             _dbContext.SaveChanges();
 
-            return _dbContext.Voters.Find(voter.VNIC);
+            return _dbContext.Voters.Find(voter);
         }
 
 
