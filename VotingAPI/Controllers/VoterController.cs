@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using VotingAPI.DataAccess;
+using VotingAPI.Models;
 using VotingAPI.Services.Voters;
 
 namespace VotingAPI.Controllers
@@ -28,6 +29,14 @@ namespace VotingAPI.Controllers
             
 
             return Ok(b);
+        }
+
+        [HttpPost]
+        public ActionResult CreateVoter([FromBody] Voter voter)
+        {
+            var o = _voterRepository.createVoter(voter);
+
+            return CreatedAtRoute("GetVoters", new { id = voter.VNIC }, o.VNIC);
         }
     }
 }
