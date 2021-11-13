@@ -25,6 +25,15 @@ namespace VotingAPI.Services.Voters
             return o;
         }
 
-        
+        public Voter createVoter(Voter voter)
+        {
+            var o = _dbContext.Voters.Add(voter);
+
+            _dbContext.SaveChanges();
+
+            return _dbContext.Voters.Find(voter.VNIC);
+        }
+
+
     }
 }

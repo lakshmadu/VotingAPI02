@@ -10,5 +10,6 @@ namespace VotingAPI.Services.Voters
     public interface IVoterRepository
     {
         public Voter GetVoter(string id);
+        public Voter createVoter(Voter voter);
     }
 }
