@@ -4,10 +4,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VotingAPI.Models;
 
-namespace VotingAPI.Models
+namespace VotingAPI.Services.Models
 {
-    public class Voter
+    public class VoterDto
     {
         [Key]
         public string VNIC { get; set; }
@@ -19,24 +20,17 @@ namespace VotingAPI.Models
         public string Address { get; set; }
 
         public string PostalCode { get; set; }
-        
+
         public DateTime DateOfBirth { get; set; }
 
         public Gender Gender { get; set; }
 
-        public string  Occupation { get; set; }
+        public string Occupation { get; set; }
 
         public MaritalStatus MaritalStatus { get; set; }
 
         public bool Vote { get; set; }
 
         public string GNID { get; set; }
-
-        public GramaNiladhari GramaNiladhari { get; set; }
-
-        public ICollection<Voter_Candidate> voter_Candidates { get; set; } = new List<Voter_Candidate>();
-
-
-
     }
 }

@@ -14,6 +14,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using VotingAPI.DataAccess;
 using VotingAPI.Services.Voters;
+using VotingAPI.Services.Parties;
 
 
 namespace VotingAPI
@@ -30,7 +31,7 @@ namespace VotingAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -41,6 +42,7 @@ namespace VotingAPI
             options.UseSqlServer(Configuration.GetConnectionString("Connection")));
 
             services.AddScoped<IVoterRepository, VoterSqlServerService>();
+            services.AddScoped<IPartyRepository,PartySqlserverService>();
 
         }
 
@@ -52,6 +54,8 @@ namespace VotingAPI
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "VotingAPI v1"));
+                //app.UseCors(options =>
+                //options.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod());
             }
 
             app.UseHttpsRedirection();

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +7,7 @@ using System.Threading.Tasks;
 using VotingAPI.DataAccess;
 using VotingAPI.Models;
 using VotingAPI.Services.Voters;
+using VotingAPI.Services.Models;
 
 namespace VotingAPI.Controllers
 {
@@ -13,30 +15,43 @@ namespace VotingAPI.Controllers
     [Controller]
     public class VoterController : Controller
     {
-        private readonly VotingDbContext dbContext;
+        private readonly IMapper _mapper;
         private readonly IVoterRepository _voterRepository;
 
         public VoterController(VotingDbContext dbContext,IVoterRepository voterRepository)
         {
-            this.dbContext = dbContext;
+            
             this._voterRepository = voterRepository;
         }
 
         [HttpGet("{id}", Name ="GetVoters")]
-        public IActionResult GetVoters(string id)
+        public ActionResult<VoterDto> GetVoters(string id)
         {
-            var b = _voterRepository.GetVoter(id);
-            
 
-            return Ok(b);
+            var b = _voterRepository.GetVoter(id);
+
+            var mappedVoter = _mapper.Map<VoterDto>(b);            
+
+            return Ok(mappedVoter);
         }
 
         [HttpPost]
-        public ActionResult CreateVoter([FromBody] Voter voter)
+        public ActionResult<VoterDto> CreateVoter([FromBody] VoterDto voter)
         {
-            var o = _voterRepository.createVoter(voter);
+            var mappedVoter = _mapper.Map<Voter>(voter);
 
-            return CreatedAtRoute("GetVoters", new { id = voter.VNIC }, o.VNIC);
+            if (mappedVoter is null)
+            {
+                return NotFound();
+            }
+
+            var o = _voterRepository.createVoter(mappedVoter);
+
+            var voterForReturn = _mapper.Map<VoterDto>(o);
+
+            return CreatedAtRoute("GetVoters", new { id = voterForReturn.VNIC }, voterForReturn);
         }
+
+
     }
 }
