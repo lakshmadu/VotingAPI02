@@ -34,6 +34,10 @@ namespace VotingAPI.Controllers
         [HttpPost]
         public ActionResult CreateVoter([FromBody] Voter voter)
         {
+            if (voter is null)
+            {
+                return NotFound();
+            }
             var o = _voterRepository.createVoter(voter);
 
             return CreatedAtRoute("GetVoters", new { id = voter.VNIC }, o.VNIC);

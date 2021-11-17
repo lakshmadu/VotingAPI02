@@ -13,9 +13,11 @@ namespace VotingAPI.Models
         public string VNIC { get; set; }
 
         public string FullName { get; set; }
-
+        public int MyProperty { get; set; }
         public string Address { get; set; }
-        //add postal code
+
+        public string PostalCode { get; set; }
+        
         public DateTime DateOfBirth { get; set; }
 
         public Gender Gender { get; set; }

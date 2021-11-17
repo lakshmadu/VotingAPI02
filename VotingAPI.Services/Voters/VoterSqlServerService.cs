@@ -27,11 +27,14 @@ namespace VotingAPI.Services.Voters
 
         public Voter createVoter(Voter voter)
         {
-            var o = _dbContext.Voters.Add(voter);
+            
+                var o = _dbContext.Voters.Add(voter);
 
-            _dbContext.SaveChanges();
+                _dbContext.SaveChanges();
 
-            return _dbContext.Voters.Find(voter);
+                return _dbContext.Voters.Find(voter.VNIC);
+            
+            
         }
 
 
