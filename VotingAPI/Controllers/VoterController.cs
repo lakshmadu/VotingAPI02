@@ -18,10 +18,11 @@ namespace VotingAPI.Controllers
         private readonly IMapper _mapper;
         private readonly IVoterRepository _voterRepository;
 
-        public VoterController(VotingDbContext dbContext,IVoterRepository voterRepository)
+        public VoterController(IMapper mapper,IVoterRepository voterRepository)
         {
             
             this._voterRepository = voterRepository;
+            _mapper = mapper;
         }
 
         [HttpGet("{id}", Name ="GetVoters")]

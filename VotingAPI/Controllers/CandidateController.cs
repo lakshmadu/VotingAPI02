@@ -24,8 +24,10 @@ namespace VotingAPI.Controllers
             _service = service;
             _mapper = mapper;
         }
+
+        
         [HttpGet]
-       public ActionResult<IEnumerable<CandidateDto>> AllCandidate(string partyName)
+        public ActionResult<IEnumerable<CandidateDto>> AllCandidate(string partyName)
         {
             var o = _service.GetAllCandidate(partyName);
 

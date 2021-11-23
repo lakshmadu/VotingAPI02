@@ -42,6 +42,8 @@ namespace VotingAPI
             services.AddDbContext<VotingDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("Connection")));
 
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             services.AddScoped<IVoterRepository, VoterSqlServerService>();
             services.AddScoped<IPartyRepository,PartySqlserverService>();
 

@@ -17,9 +17,10 @@ namespace VotingAPI.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IPartyRepository _service;
-        public PartyController(IPartyRepository service)
+        public PartyController(IPartyRepository service,IMapper mapper)
         {
             _service=service;
+            _mapper = mapper;
         }
 
         [HttpGet]

@@ -16,7 +16,7 @@ namespace VotingAPI.DataAccess
         {
             
             var optionsBuilder = new DbContextOptionsBuilder<VotingDbContext>();
-            optionsBuilder.UseSqlServer("Server=MSI\\SQLEXPRESS;Database=VotingDB;Trusted_Connection=True;MultipleActiveResultSets=True;");
+            optionsBuilder.UseSqlServer("Server=(LocalDB)\\MSSQLLocalDB;Database=VotingDB;Trusted_Connection=True;MultipleActiveResultSets=True;");
 
             return new VotingDbContext(optionsBuilder.Options);
         }
