@@ -13,13 +13,9 @@ namespace VotingAPI.Models
         public string VNIC { get; set; }
 
         public string FullName { get; set; }
-<<<<<<< HEAD
 
         public int MyProperty { get; set; }
 
-=======
-        public int MyProperty { get; set; }
->>>>>>> master
         public string Address { get; set; }
 
         public string PostalCode { get; set; }
