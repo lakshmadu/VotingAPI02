@@ -13,7 +13,7 @@ namespace VotingAPI.Controllers
 {
     [Route("api/party")]
     [ApiController]
-    public class PartyController : ControllerBase
+    public class PartyController : Controller
     {
         private readonly IMapper _mapper;
         private readonly IPartyRepository _service;

@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using VotingAPI.DataAccess;
 using VotingAPI.Services.Voters;
 using VotingAPI.Services.Parties;
+using VotingAPI.Services.Candidates;
 
 
 namespace VotingAPI
@@ -43,6 +44,9 @@ namespace VotingAPI
 
             services.AddScoped<IVoterRepository, VoterSqlServerService>();
             services.AddScoped<IPartyRepository,PartySqlserverService>();
+
+            services.AddScoped<ICandidateRepository, CandidateSqlServerService>();
+            
 
 
         }
