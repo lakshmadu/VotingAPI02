@@ -14,6 +14,7 @@ namespace VotingAPI.Services.Profiles
         public CandidateProfile()
         {
             CreateMap<Candidate, CandidateDto>();
+            CreateMap<CandidateDto, Candidate>();
 
 
         }
