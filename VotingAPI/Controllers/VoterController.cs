@@ -38,20 +38,13 @@ namespace VotingAPI.Controllers
         [HttpPost]
         public ActionResult<VoterDto> CreateVoter([FromBody] VoterDto voter)
         {
-<<<<<<< HEAD
+
             var mappedVoter = _mapper.Map<Voter>(voter);
 
             if (mappedVoter is null)
             {
                 return NotFound();
             }
-=======
-            if (voter is null)
-            {
-                return NotFound();
-            }
-            var o = _voterRepository.createVoter(voter);
->>>>>>> master
 
             var o = _voterRepository.createVoter(mappedVoter);
 
