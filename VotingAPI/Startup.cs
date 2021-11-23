@@ -41,8 +41,12 @@ namespace VotingAPI
             services.AddDbContext<VotingDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("Connection")));
 
+<<<<<<< HEAD
             services.AddScoped<IVoterRepository, VoterSqlServerService>();
             services.AddScoped<IPartyRepository,PartySqlserverService>();
+=======
+            services.AddTransient<IVoterRepository, VoterSqlServerService>();
+>>>>>>> master
 
         }
 
@@ -54,8 +58,13 @@ namespace VotingAPI
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "VotingAPI v1"));
+<<<<<<< HEAD
                 //app.UseCors(options =>
                 //options.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod());
+=======
+                app.UseCors(options =>
+                options.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod());
+>>>>>>> master
             }
 
             app.UseHttpsRedirection();

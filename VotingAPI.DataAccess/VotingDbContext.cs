@@ -30,7 +30,7 @@ namespace VotingAPI.DataAccess
             optionsBuilder.UseSqlServer(connectionString);
         }*/
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        /*protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Admin>().HasData(new Admin[]
             {
@@ -88,6 +88,6 @@ namespace VotingAPI.DataAccess
                 new Voter_Candidate{ID=5, VNIC="999300927v", CID="Can1"},
                 new Voter_Candidate{ID=6, VNIC="998300900v", CID="Can2"}
             });
-        }
+        }*/
     }
 }
