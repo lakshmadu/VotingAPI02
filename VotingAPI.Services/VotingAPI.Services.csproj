@@ -1,16 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\VotingAPI.DataAccess\VotingAPI.DataAccess.csproj" />
-    <ProjectReference Include="..\VotingAPI.Models\VotingAPI.Models.csproj" />
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <ProjectReference Include="..\VotingAPI.Models\VotingAPI.Models.csproj" />
+    <ProjectReference Include="..\VotingAPI.DataAccess\VotingAPI.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>
