@@ -12,13 +12,13 @@ namespace VotingAPI.Models
         [Key]
         public int ID { get; set; }
 
-        public string VNIC { get; set; }
+        public string? VNIC { get; set; }
 
-        public Voter Voter { get; set; }
+        public Voter? Voter { get; set; }
 
-        public string CID { get; set; }
+        public string? CID { get; set; }
 
-        public Candidate Candidate { get; set; }       
+        public Candidate? Candidate { get; set; }       
 
 
 

@@ -18,7 +18,7 @@ namespace VotingAPI.Models
 
         public string? AdminID { get; set; }
 
-        public Admin Admin { get; set; }
+        public Admin? Admin { get; set; }
 
         public ICollection<Candidate> candidates { get; set; } = new List<Candidate>();
 

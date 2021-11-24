@@ -10,13 +10,13 @@ namespace VotingAPI.Models
     public class ElectionDP
     {
         [Key]
-        public string EDID { get; set; }
+        public string? EDID { get; set; }
 
-        public string DName { get; set; }
+        public string? DName { get; set; }
 
         public int Telephone { get; set; }
 
-        public string Address { get; set; }
+        public string? Address { get; set; }
 
         public ICollection<Admin> admins { get; set; } = new List<Admin>();
 
