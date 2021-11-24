@@ -10,20 +10,20 @@ namespace VotingAPI.Models
     public class GramaNiladhari
     {
         [Key]
-        public string GNID { get; set; }
+        public string? GNID { get; set; }
 
         [MaxLength(15)]
-        public string FullName { get; set; }
+        public string? FullName { get; set; }
+        
+        public string? Password { get; set; }
 
-        public string Password { get; set; }
+        public string? GNDivision { get; set; }
 
-        public string GNDivision { get; set; }
+        public string? DSDivision { get; set; }
 
-        public string DSDivision { get; set; }
+        public string? AdminID { get; set; }
 
-        public string AdminID { get; set; }
-
-        public Admin Admin { get; set; }
+        public Admin? Admin { get; set; }
 
     }
 }
