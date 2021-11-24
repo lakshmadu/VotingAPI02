@@ -21,7 +21,7 @@ namespace VotingAPI.Services.Parties
             return o;
         }
         public Party AllParty(){
-            var o = _contex.Parties.Find();
+            var o = _contex.Parties.Find();//error
             return o;
         }
 
