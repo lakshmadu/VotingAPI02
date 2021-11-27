@@ -10,15 +10,18 @@ namespace VotingAPI.Models
     public class Party
     {
         [Key]
-        public string PartyName { get; set; }
+        public string? PName { get; set; }
 
-        public string Address { get; set; }
+        public string? Address { get; set; }
 
-        public string TelphoneNo { get; set; }     
+        public string? TelphoneNo { get; set; }    
+        
+        [MaxLength]
+        public byte[]? Image { get; set; }
 
-        public string AdminID { get; set; }
+        public string? AdminID { get; set; }
 
-        public Admin Admin { get; set; }
+        public Admin? Admin { get; set; }
 
         public ICollection<Candidate> candidates { get; set; } = new List<Candidate>();
 

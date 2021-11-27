@@ -10,12 +10,14 @@ namespace VotingAPI.Services.Models
     public class PartyDto
     {
         [Key]
-        public string PartyName { get; set; }
+        public string? PName { get; set; }
 
-        public string Address { get; set; }
+        public string? Address { get; set; }
 
-        public string TelphoneNo { get; set; }
+        public string? TelphoneNo { get; set; }
 
-        public string AdminID { get; set; }
+        public byte[]? Image { get; set; }
+
+        public string? AdminID { get; set; }
     }
 }

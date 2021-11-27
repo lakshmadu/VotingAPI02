@@ -10,15 +10,15 @@ namespace VotingAPI.Models
     public class Result
     {
         [Key]
-        public string DID { get; set; }
+        public string? DID { get; set; }
 
-        public string District{ get; set; }
+        public string? District{ get; set; }
 
         public int Count { get; set; }
 
-        public string EDID { get; set; }
+        public string? EDID { get; set; }
 
-        public ElectionDP ElectionDP { get; set; }
+        public ElectionDP? ElectionDP { get; set; }
 
         public ICollection<Candidate> candidates { get; set; } = new List<Candidate>();
 
