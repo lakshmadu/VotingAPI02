@@ -42,9 +42,9 @@ namespace VotingAPI.DataAccess
 
             modelBuilder.Entity<Candidate>().HasData(new Candidate[]
             {
-                new Candidate{CID="Can1",NIC="200006101510",FullName="Lakshan Madubashika",Address="Colombo",DateOfBirth=Convert.ToDateTime("Mar 1,2000"),Gender=Gender.Male,PartyName="Podhujana Peramuna", DID="D01"},
-                new Candidate{CID="Can2", NIC="19342360V", FullName="Ravishmad", Address="Kandy",DateOfBirth=Convert.ToDateTime("Feb 28 1999"), Gender=Gender.Male, PartyName="Samagi Jana Balawegaya", DID="D02"},
-                new Candidate{CID="Can3",NIC="200006111510",FullName="Samadara",Address="Colombo",DateOfBirth=Convert.ToDateTime("Mar 2,2000"),Gender=Gender.Female,PartyName="Podhujana Peramuna", DID="D01"}
+                new Candidate{CID="Can1",NIC="200006101510",FullName="Lakshan Madubashika",Address="Colombo",DateOfBirth=Convert.ToDateTime("Mar 1,2000"),Gender=Gender.Male,PName="Podhujana Peramuna", DID="D01"},
+                new Candidate{CID="Can2", NIC="19342360V", FullName="Ravishmad", Address="Kandy",DateOfBirth=Convert.ToDateTime("Feb 28 1999"), Gender=Gender.Male, PName="Samagi Jana Balawegaya", DID="D02"},
+                new Candidate{CID="Can3",NIC="200006111510",FullName="Samadara",Address="Colombo",DateOfBirth=Convert.ToDateTime("Mar 2,2000"),Gender=Gender.Female,PName="Podhujana Peramuna", DID="D01"}
             });
             modelBuilder.Entity<ElectionDP>().HasData(new ElectionDP[]
             {
@@ -63,8 +63,8 @@ namespace VotingAPI.DataAccess
 
             modelBuilder.Entity<Party>().HasData(new Party[]
             {
-                new Party{PartyName="Podhujana Peramuna",Address="Colombo", AdminID="Admin01"},
-                new Party{PartyName="Samagi Jana Balawegaya",Address="Kandy", AdminID="Admin01"}
+                new Party{PName="Podhujana Peramuna",Address="Colombo", TelphoneNo="0716510096",AdminID="Admin01"},
+                new Party{PName="Samagi Jana Balawegaya",Address="Kandy", TelphoneNo="0128894561",AdminID="Admin01"}
             });
             modelBuilder.Entity<Result>().HasData(new Result[]
             {
@@ -73,11 +73,11 @@ namespace VotingAPI.DataAccess
             });
             modelBuilder.Entity<Voter>().HasData(new Voter[]
             {
-                new Voter{VNIC="998300900v",FullName="Imasha Divyanjalee", Address="67/5,ranala road, Habarakada,Homagama", DateOfBirth= Convert.ToDateTime("Nov 25, 1998"), Occupation="Marketing Asistant",MaritalStatus=MaritalStatus.UnMarried, Vote=true,GNID="GN001"},
-                new Voter{VNIC="999300920v",FullName="samantha", Address="ududumbara", DateOfBirth= Convert.ToDateTime("Nov 25, 1999"), Occupation="Farmer",MaritalStatus=MaritalStatus.Married, Vote=true,GNID="GN002"},
-                new Voter{VNIC="999300123v",FullName="santha", Address="Maharagama", DateOfBirth= Convert.ToDateTime("Nov 25, 1999"), Occupation="Farmer",MaritalStatus=MaritalStatus.UnMarried, Vote=true,GNID="GN001"},
-                new Voter{VNIC="999300925v",FullName="Vimal", Address="Ragama", DateOfBirth= Convert.ToDateTime("Nov 25, 1999"), Occupation="Farmer",MaritalStatus=MaritalStatus.Married, Vote=true,GNID="GN001"},
-                new Voter{VNIC="999300927v",FullName="sumane", Address="Katugasthota", DateOfBirth= Convert.ToDateTime("Nov 25, 1999"), Occupation="Farmer",MaritalStatus=MaritalStatus.UnMarried, Vote=true,GNID="GN002"}
+                new Voter{VNIC="998300900v",FullName="Imasha Divyanjalee", Address="67/5,ranala road, Habarakada,Homagama", PostalCode=91250,DateOfBirth= Convert.ToDateTime("Nov 25, 1998"), Occupation="Marketing Asistant",MaritalStatus=MaritalStatus.UnMarried, Vote=true,GNID="GN001"},
+                new Voter{VNIC="999300920v",FullName="samantha", Address="ududumbara",PostalCode=91200, DateOfBirth= Convert.ToDateTime("Nov 25, 1999"), Occupation="Farmer",MaritalStatus=MaritalStatus.Married, Vote=true,GNID="GN002"},
+                new Voter{VNIC="999300123v",FullName="santha", Address="Maharagama",PostalCode=91300, DateOfBirth= Convert.ToDateTime("Nov 25, 1999"), Occupation="Farmer",MaritalStatus=MaritalStatus.UnMarried, Vote=true,GNID="GN001"},
+                new Voter{VNIC="999300925v",FullName="Vimal", Address="Ragama",PostalCode=91232, DateOfBirth= Convert.ToDateTime("Nov 25, 1999"), Occupation="Farmer",MaritalStatus=MaritalStatus.Married, Vote=true,GNID="GN001"},
+                new Voter{VNIC="999300927v",FullName="sumane", Address="Katugasthota",PostalCode=91900, DateOfBirth= Convert.ToDateTime("Nov 25, 1999"), Occupation="Farmer",MaritalStatus=MaritalStatus.UnMarried, Vote=true,GNID="GN002"}
             });
             modelBuilder.Entity<Voter_Candidate>().HasData(new Voter_Candidate[]
             {

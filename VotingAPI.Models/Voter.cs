@@ -14,11 +14,9 @@ namespace VotingAPI.Models
 
         public string? FullName { get; set; }
 
-        public int MyProperty { get; set; }
-
         public string? Address { get; set; }
 
-        public string? PostalCode { get; set; }
+        public int? PostalCode { get; set; }
         
         public DateTime DateOfBirth { get; set; }
 

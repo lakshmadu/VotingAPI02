@@ -31,7 +31,7 @@ namespace VotingAPI.Services.Parties
 
             _contex.SaveChanges();
 
-            return _contex.Parties.Find(party.PartyName);
+            return _contex.Parties.Find(party.PName);
 
             
         }
@@ -40,7 +40,7 @@ namespace VotingAPI.Services.Parties
 
             _contex.Entry(party).State = EntityState.Modified;
             _contex.SaveChanges();
-            return _contex.Parties.Find(party.PartyName);
+            return _contex.Parties.Find(party.PName);
         }
 
 
