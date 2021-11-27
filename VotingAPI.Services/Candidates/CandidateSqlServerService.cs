@@ -26,7 +26,7 @@ namespace VotingAPI.Services.Candidates
 
         public ICollection<Candidate> GetAllCandidate(string partyName)
         {
-            var o = _context.Candidates.Where(x=>x.PartyName==partyName).ToList();
+            var o = _context.Candidates.Where(x=>x.PName==partyName).ToList();
             return o;
         }
 

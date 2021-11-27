@@ -45,15 +45,28 @@ namespace VotingAPI.Controllers
         }
 
         [HttpPost]
-        public ActionResult<PartyDto> PostTModel([FromBody]PartyDto party)
+        public ActionResult<PartyDto> PostTModel([FromBody]PartyDto party, List<IFormFile> formFile)
         {
+            
+
+            foreach(var item in formFile)
+            {
+                if(item.Length > 0)
+                {
+                    using(var stram = new MemoryStream())
+                    {
+                        item.CopyTo(stram);
+                        party.Image = stram.ToArray();
+                    }
+                }
+            }
             var mappedParty = _mapper.Map<Party>(party);
 
             var o = _service.AddParty(mappedParty);
 
             var partyForReturn = _mapper.Map<PartyDto>(o);
 
-            return CreatedAtRoute("GetTModelById", new { name=partyForReturn.PartyName }, partyForReturn.PartyName);
+            return CreatedAtRoute("GetTModelById", new { name=partyForReturn.PName }, partyForReturn.PName);
         }
 
         [HttpPut]

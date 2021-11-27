@@ -1,9 +1,11 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
+#nullable disable
+
 namespace VotingAPI.DataAccess.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class advancedCreation : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -41,8 +43,7 @@ namespace VotingAPI.DataAccess.Migrations
                         name: "FK_Admins_ElectionDPs_ElectionDPEDID",
                         column: x => x.ElectionDPEDID,
                         principalTable: "ElectionDPs",
-                        principalColumn: "EDID",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "EDID");
                 });
 
             migrationBuilder.CreateTable(
@@ -62,8 +63,7 @@ namespace VotingAPI.DataAccess.Migrations
                         name: "FK_Results_ElectionDPs_ElectionDPEDID",
                         column: x => x.ElectionDPEDID,
                         principalTable: "ElectionDPs",
-                        principalColumn: "EDID",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "EDID");
                 });
 
             migrationBuilder.CreateTable(
@@ -71,7 +71,7 @@ namespace VotingAPI.DataAccess.Migrations
                 columns: table => new
                 {
                     GNID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FullName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     GNDivision = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DSDivision = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -84,27 +84,27 @@ namespace VotingAPI.DataAccess.Migrations
                         name: "FK_GramaNiladharis_Admins_AdminID",
                         column: x => x.AdminID,
                         principalTable: "Admins",
-                        principalColumn: "AdminID",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "AdminID");
                 });
 
             migrationBuilder.CreateTable(
                 name: "Parties",
                 columns: table => new
                 {
-                    PartyName = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    PName = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TelphoneNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Image = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     AdminID = table.Column<string>(type: "nvarchar(15)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Parties", x => x.PartyName);
+                    table.PrimaryKey("PK_Parties", x => x.PName);
                     table.ForeignKey(
                         name: "FK_Parties_Admins_AdminID",
                         column: x => x.AdminID,
                         principalTable: "Admins",
-                        principalColumn: "AdminID",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "AdminID");
                 });
 
             migrationBuilder.CreateTable(
@@ -114,6 +114,7 @@ namespace VotingAPI.DataAccess.Migrations
                     VNIC = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     FullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PostalCode = table.Column<int>(type: "int", nullable: true),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Gender = table.Column<int>(type: "int", nullable: false),
                     Occupation = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -129,8 +130,7 @@ namespace VotingAPI.DataAccess.Migrations
                         name: "FK_Voters_GramaNiladharis_GramaNiladhariGNID",
                         column: x => x.GramaNiladhariGNID,
                         principalTable: "GramaNiladharis",
-                        principalColumn: "GNID",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "GNID");
                 });
 
             migrationBuilder.CreateTable(
@@ -143,8 +143,8 @@ namespace VotingAPI.DataAccess.Migrations
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Gender = table.Column<int>(type: "int", nullable: false),
-                    PartyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PartyName1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    PName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PartyPName = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     DID = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ResultDID = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
@@ -152,17 +152,15 @@ namespace VotingAPI.DataAccess.Migrations
                 {
                     table.PrimaryKey("PK_Candidates", x => x.CID);
                     table.ForeignKey(
-                        name: "FK_Candidates_Parties_PartyName1",
-                        column: x => x.PartyName1,
+                        name: "FK_Candidates_Parties_PartyPName",
+                        column: x => x.PartyPName,
                         principalTable: "Parties",
-                        principalColumn: "PartyName",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "PName");
                     table.ForeignKey(
                         name: "FK_Candidates_Results_ResultDID",
                         column: x => x.ResultDID,
                         principalTable: "Results",
-                        principalColumn: "DID",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "DID");
                 });
 
             migrationBuilder.CreateTable(
@@ -183,14 +181,12 @@ namespace VotingAPI.DataAccess.Migrations
                         name: "FK_Voter_Candidates_Candidates_CandidateCID",
                         column: x => x.CandidateCID,
                         principalTable: "Candidates",
-                        principalColumn: "CID",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "CID");
                     table.ForeignKey(
                         name: "FK_Voter_Candidates_Voters_VoterVNIC",
                         column: x => x.VoterVNIC,
                         principalTable: "Voters",
-                        principalColumn: "VNIC",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "VNIC");
                 });
 
             migrationBuilder.InsertData(
@@ -206,7 +202,7 @@ namespace VotingAPI.DataAccess.Migrations
 
             migrationBuilder.InsertData(
                 table: "Candidates",
-                columns: new[] { "CID", "Address", "DID", "DateOfBirth", "FullName", "Gender", "NIC", "PartyName", "PartyName1", "ResultDID" },
+                columns: new[] { "CID", "Address", "DID", "DateOfBirth", "FullName", "Gender", "NIC", "PName", "PartyPName", "ResultDID" },
                 values: new object[,]
                 {
                     { "Can1", "Colombo", "D01", new DateTime(2000, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Lakshan Madubashika", 0, "200006101510", "Podhujana Peramuna", null, null },
@@ -228,8 +224,8 @@ namespace VotingAPI.DataAccess.Migrations
                 columns: new[] { "DID", "Count", "District", "EDID", "ElectionDPEDID" },
                 values: new object[,]
                 {
-                    { "D02", 4000, "kandy", "Elec01", null },
-                    { "D01", 5000, "Colombo", "Elec01", null }
+                    { "D01", 5000, "Colombo", "Elec01", null },
+                    { "D02", 4000, "kandy", "Elec01", null }
                 });
 
             migrationBuilder.InsertData(
@@ -237,24 +233,24 @@ namespace VotingAPI.DataAccess.Migrations
                 columns: new[] { "ID", "CID", "CandidateCID", "VNIC", "VoterVNIC" },
                 values: new object[,]
                 {
-                    { 5, "Can1", null, "999300927v", null },
                     { 1, "Can1", null, "998300900v", null },
                     { 2, "Can2", null, "999300920v", null },
                     { 3, "Can1", null, "999300123v", null },
                     { 4, "Can2", null, "999300925v", null },
+                    { 5, "Can1", null, "999300927v", null },
                     { 6, "Can2", null, "998300900v", null }
                 });
 
             migrationBuilder.InsertData(
                 table: "Voters",
-                columns: new[] { "VNIC", "Address", "DateOfBirth", "FullName", "GNID", "Gender", "GramaNiladhariGNID", "MaritalStatus", "Occupation", "Vote" },
+                columns: new[] { "VNIC", "Address", "DateOfBirth", "FullName", "GNID", "Gender", "GramaNiladhariGNID", "MaritalStatus", "Occupation", "PostalCode", "Vote" },
                 values: new object[,]
                 {
-                    { "998300900v", "67/5,ranala road, Habarakada,Homagama", new DateTime(1998, 11, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "Imasha Divyanjalee", "GN001", 0, null, 1, "Marketing Asistant", true },
-                    { "999300920v", "ududumbara", new DateTime(1999, 11, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "samantha", "GN002", 0, null, 0, "Farmer", true },
-                    { "999300123v", "Maharagama", new DateTime(1999, 11, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "santha", "GN001", 0, null, 1, "Farmer", true },
-                    { "999300925v", "Ragama", new DateTime(1999, 11, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "Vimal", "GN001", 0, null, 0, "Farmer", true },
-                    { "999300927v", "Katugasthota", new DateTime(1999, 11, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "sumane", "GN002", 0, null, 1, "Farmer", true }
+                    { "998300900v", "67/5,ranala road, Habarakada,Homagama", new DateTime(1998, 11, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "Imasha Divyanjalee", "GN001", 0, null, 1, "Marketing Asistant", 91250, true },
+                    { "999300123v", "Maharagama", new DateTime(1999, 11, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "santha", "GN001", 0, null, 1, "Farmer", 91300, true },
+                    { "999300920v", "ududumbara", new DateTime(1999, 11, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "samantha", "GN002", 0, null, 0, "Farmer", 91200, true },
+                    { "999300925v", "Ragama", new DateTime(1999, 11, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "Vimal", "GN001", 0, null, 0, "Farmer", 91232, true },
+                    { "999300927v", "Katugasthota", new DateTime(1999, 11, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "sumane", "GN002", 0, null, 1, "Farmer", 91900, true }
                 });
 
             migrationBuilder.InsertData(
@@ -270,11 +266,11 @@ namespace VotingAPI.DataAccess.Migrations
 
             migrationBuilder.InsertData(
                 table: "Parties",
-                columns: new[] { "PartyName", "Address", "AdminID" },
+                columns: new[] { "PName", "Address", "AdminID", "Image", "TelphoneNo" },
                 values: new object[,]
                 {
-                    { "Podhujana Peramuna", "Colombo", "Admin01" },
-                    { "Samagi Jana Balawegaya", "Kandy", "Admin01" }
+                    { "Podhujana Peramuna", "Colombo", "Admin01", null, null },
+                    { "Samagi Jana Balawegaya", "Kandy", "Admin01", null, null }
                 });
 
             migrationBuilder.CreateIndex(
@@ -283,9 +279,9 @@ namespace VotingAPI.DataAccess.Migrations
                 column: "ElectionDPEDID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Candidates_PartyName1",
+                name: "IX_Candidates_PartyPName",
                 table: "Candidates",
-                column: "PartyName1");
+                column: "PartyPName");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Candidates_ResultDID",

@@ -7,19 +7,22 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VotingAPI.DataAccess;
 
+#nullable disable
+
 namespace VotingAPI.DataAccess.Migrations
 {
     [DbContext(typeof(VotingDbContext))]
-    [Migration("20211109082002_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20211127171742_advancedCreation")]
+    partial class advancedCreation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.9")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "6.0.0")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
             modelBuilder.Entity("VotingAPI.Models.Admin", b =>
                 {
@@ -120,10 +123,10 @@ namespace VotingAPI.DataAccess.Migrations
                     b.Property<string>("NIC")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PartyName")
+                    b.Property<string>("PName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PartyName1")
+                    b.Property<string>("PartyPName")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ResultDID")
@@ -131,7 +134,7 @@ namespace VotingAPI.DataAccess.Migrations
 
                     b.HasKey("CID");
 
-                    b.HasIndex("PartyName1");
+                    b.HasIndex("PartyPName");
 
                     b.HasIndex("ResultDID");
 
@@ -147,7 +150,7 @@ namespace VotingAPI.DataAccess.Migrations
                             FullName = "Lakshan Madubashika",
                             Gender = 0,
                             NIC = "200006101510",
-                            PartyName = "Podhujana Peramuna"
+                            PName = "Podhujana Peramuna"
                         },
                         new
                         {
@@ -158,7 +161,7 @@ namespace VotingAPI.DataAccess.Migrations
                             FullName = "Ravishmad",
                             Gender = 0,
                             NIC = "19342360V",
-                            PartyName = "Samagi Jana Balawegaya"
+                            PName = "Samagi Jana Balawegaya"
                         },
                         new
                         {
@@ -169,7 +172,7 @@ namespace VotingAPI.DataAccess.Migrations
                             FullName = "Samadara",
                             Gender = 1,
                             NIC = "200006111510",
-                            PartyName = "Podhujana Peramuna"
+                            PName = "Podhujana Peramuna"
                         });
                 });
 
@@ -220,7 +223,8 @@ namespace VotingAPI.DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FullName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
                     b.Property<string>("GNDivision")
                         .HasColumnType("nvarchar(max)");
@@ -275,7 +279,7 @@ namespace VotingAPI.DataAccess.Migrations
 
             modelBuilder.Entity("VotingAPI.Models.Party", b =>
                 {
-                    b.Property<string>("PartyName")
+                    b.Property<string>("PName")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Address")
@@ -284,7 +288,13 @@ namespace VotingAPI.DataAccess.Migrations
                     b.Property<string>("AdminID")
                         .HasColumnType("nvarchar(15)");
 
-                    b.HasKey("PartyName");
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("TelphoneNo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PName");
 
                     b.HasIndex("AdminID");
 
@@ -293,13 +303,13 @@ namespace VotingAPI.DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            PartyName = "Podhujana Peramuna",
+                            PName = "Podhujana Peramuna",
                             Address = "Colombo",
                             AdminID = "Admin01"
                         },
                         new
                         {
-                            PartyName = "Samagi Jana Balawegaya",
+                            PName = "Samagi Jana Balawegaya",
                             Address = "Kandy",
                             AdminID = "Admin01"
                         });
@@ -374,6 +384,9 @@ namespace VotingAPI.DataAccess.Migrations
                     b.Property<string>("Occupation")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("PostalCode")
+                        .HasColumnType("int");
+
                     b.Property<bool>("Vote")
                         .HasColumnType("bit");
 
@@ -394,6 +407,7 @@ namespace VotingAPI.DataAccess.Migrations
                             Gender = 0,
                             MaritalStatus = 1,
                             Occupation = "Marketing Asistant",
+                            PostalCode = 91250,
                             Vote = true
                         },
                         new
@@ -406,6 +420,7 @@ namespace VotingAPI.DataAccess.Migrations
                             Gender = 0,
                             MaritalStatus = 0,
                             Occupation = "Farmer",
+                            PostalCode = 91200,
                             Vote = true
                         },
                         new
@@ -418,6 +433,7 @@ namespace VotingAPI.DataAccess.Migrations
                             Gender = 0,
                             MaritalStatus = 1,
                             Occupation = "Farmer",
+                            PostalCode = 91300,
                             Vote = true
                         },
                         new
@@ -430,6 +446,7 @@ namespace VotingAPI.DataAccess.Migrations
                             Gender = 0,
                             MaritalStatus = 0,
                             Occupation = "Farmer",
+                            PostalCode = 91232,
                             Vote = true
                         },
                         new
@@ -442,6 +459,7 @@ namespace VotingAPI.DataAccess.Migrations
                             Gender = 0,
                             MaritalStatus = 1,
                             Occupation = "Farmer",
+                            PostalCode = 91900,
                             Vote = true
                         });
                 });
@@ -450,8 +468,9 @@ namespace VotingAPI.DataAccess.Migrations
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<string>("CID")
                         .HasColumnType("nvarchar(max)");
@@ -525,7 +544,7 @@ namespace VotingAPI.DataAccess.Migrations
                 {
                     b.HasOne("VotingAPI.Models.Party", "Party")
                         .WithMany("candidates")
-                        .HasForeignKey("PartyName1");
+                        .HasForeignKey("PartyPName");
 
                     b.HasOne("VotingAPI.Models.Result", "Result")
                         .WithMany("candidates")

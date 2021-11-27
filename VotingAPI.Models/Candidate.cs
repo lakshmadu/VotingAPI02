@@ -22,7 +22,7 @@ namespace VotingAPI.Models
 
         public Gender Gender  { get; set; }
 
-        public string? PartyName { get; set; }
+        public string? PName { get; set; }
 
         public Party? Party { get; set; }
 
