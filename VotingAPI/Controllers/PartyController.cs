@@ -45,21 +45,21 @@ namespace VotingAPI.Controllers
         }
 
         [HttpPost]
-        public ActionResult<PartyDto> PostTModel([FromBody]PartyDto party, List<IFormFile> formFile)
+        public ActionResult<PartyDto> CreateParty([FromForm]PartyDto party,IFormFile formFile)
         {
             
 
-            foreach(var item in formFile)
-            {
-                if(item.Length > 0)
+            
+            
+                if(formFile.Length > 0)
                 {
                     using(var stram = new MemoryStream())
                     {
-                        item.CopyTo(stram);
+                        formFile.CopyTo(stram);
                         party.Image = stram.ToArray();
                     }
                 }
-            }
+            
             var mappedParty = _mapper.Map<Party>(party);
 
             var o = _service.AddParty(mappedParty);
