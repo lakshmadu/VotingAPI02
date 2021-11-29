@@ -45,7 +45,7 @@ namespace VotingAPI.Controllers
         }
 
         [HttpPost]
-        public ActionResult<PartyDto> CreateParty([FromForm]PartyDto party,IFormFile formFile)
+        public async Task<ActionResult<PartyDto>> CreateParty([FromForm]PartyDto party,IFormFile formFile)
         {
             
 
@@ -55,7 +55,7 @@ namespace VotingAPI.Controllers
                 {
                     using(var stram = new MemoryStream())
                     {
-                        formFile.CopyTo(stram);
+                        await formFile.CopyToAsync(stram);
                         party.Image = stram.ToArray();
                     }
                 }
@@ -70,10 +70,11 @@ namespace VotingAPI.Controllers
         }
 
         [HttpPut]
-        public IActionResult PutTModel(Party party)
+        public IActionResult PutTModel(PartyDto party)
         {
+            var mappedParty = _mapper.Map<PartyDto>(party);
 
-            var o = _service.UpDateParty(party);
+            _service.UpDateParty(mappedParty);
 
             return Ok();
         }
