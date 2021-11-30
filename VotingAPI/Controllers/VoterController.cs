@@ -26,7 +26,7 @@ namespace VotingAPI.Controllers
         }
 
         [HttpGet("{id}", Name ="GetVoters")]
-        public async Task<ActionResult<VoterDto>> GetVoters(string id)
+        public ActionResult<VoterDto> GetVoters(string id)
         {
 
             var b = _voterRepository.GetVoter(id);

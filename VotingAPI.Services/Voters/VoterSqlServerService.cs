@@ -19,20 +19,34 @@ namespace VotingAPI.Services.Voters
 
         public Voter GetVoter(string id)
         {
-            
-            var o = _dbContext.Voters.Find(id);
+            try
+            {
+                var o = _dbContext.Voters.Find(id);
 
-            return o;
+                return o;
+            }catch(Exception ex){
+                return null;
+            }
+            
+            
         }
 
         public Voter createVoter(Voter voter)
         {
-            
+            try
+            {
+
                 var o = _dbContext.Voters.Add(voter);
 
                 _dbContext.SaveChanges();
 
                 return _dbContext.Voters.Find(voter.VNIC);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
             
             
         }
