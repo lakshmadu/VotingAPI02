@@ -18,25 +18,49 @@ namespace VotingAPI.Services.Candidates
            
         }
 
-        public Candidate FindCandidate(string CID)
+        public async Task<Candidate> FindCandidate(string CID)
         {
-            var o = _context.Candidates.Find(CID);
-            return o;
+            try
+            {
+                var o = await _context.Candidates.FindAsync(CID);
+                if (o == null)
+                    return null;
+                return o;
+            }catch (Exception ex)
+            {
+                return null;
+            }
+            
         }
 
         public ICollection<Candidate> GetAllCandidate(string partyName)
         {
-            var o = _context.Candidates.Where(x=>x.PName==partyName).ToList();
-            return o;
+            try
+            {
+                var o =  _context.Candidates.Where(x => x.PName == partyName).ToList();
+
+                return o;
+            }catch(Exception ex)
+            {
+                return null;
+            }
+            
         }
 
-        public Candidate createCandidate(Candidate candidate)
+        public async Task<Candidate> createCandidate(Candidate candidate)
         {
-            _context.Candidates.Add(candidate);
+            try
+            {
+                await _context.Candidates.AddAsync(candidate);
 
-            _context.SaveChanges();
+                await _context.SaveChangesAsync();
 
-            return _context.Candidates.Find(candidate.CID);
+                return await _context.Candidates.FindAsync(candidate.CID);
+            }catch (Exception ex)
+            {
+                return null;
+            }
+           
         }
     }
 }
