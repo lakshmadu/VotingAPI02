@@ -18,11 +18,11 @@ namespace VotingAPI.Services.Candidates
            
         }
 
-        public async Task<Candidate> FindCandidate(string CID)
+        public Candidate FindCandidate(string CID)
         {
             try
             {
-                var o = await _context.Candidates.FindAsync(CID);
+                var o = _context.Candidates.Find(CID);
                 if (o == null)
                     return null;
                 return o;

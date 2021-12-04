@@ -9,7 +9,7 @@ namespace VotingAPI.Services.Candidates
 {
     public interface ICandidateRepository
     {
-        public Task<Candidate> FindCandidate(string CID);
+        public Candidate FindCandidate(string CID);
         public ICollection<Candidate> GetAllCandidate(string partyName);
         public Task<Candidate> createCandidate(Candidate candidate);
     }
