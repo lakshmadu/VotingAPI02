@@ -7,20 +7,25 @@ using VotingAPI.Models;
 using VotingAPI.Services.Models;
 using VotingAPI.Services.Parties;
 using AutoMapper;
-
+using Microsoft.AspNetCore.Authorization;
+using VotingAPI.Services.Security;
 
 namespace VotingAPI.Controllers
 {
+    [Authorize]
     [Route("api/party")]
     [ApiController]
     public class PartyController : Controller
     {
         private readonly IMapper _mapper;
         private readonly IPartyRepository _service;
-        public PartyController(IPartyRepository service,IMapper mapper)
+        private readonly IJWTAuthenticationManager _jWTAuthenticationManager;
+        
+        public PartyController(IPartyRepository service,IMapper mapper, IJWTAuthenticationManager jWTAuthenticationManager)
         {
             _service=service;
             _mapper = mapper;
+            _jWTAuthenticationManager = jWTAuthenticationManager;
         }
 
         [HttpGet]
@@ -77,6 +82,18 @@ namespace VotingAPI.Controllers
             _service.UpDateParty(mappedParty);
 
             return Ok();
+        }
+
+        [AllowAnonymous]
+        [HttpPost("authenticate")]
+        public IActionResult Authenticate([FromBody] UserCred userCred)
+        {
+            var token = _jWTAuthenticationManager.Authenticate(userCred.Username, userCred.Password);
+
+            if (token == null)
+                return Unauthorized();
+
+            return Ok(token);
         }
 
         // [HttpDelete("{id}")]
