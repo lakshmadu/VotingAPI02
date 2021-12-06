@@ -1,6 +1,7 @@
 using VotingAPI.Models;
 using VotingAPI.DataAccess;
 using Microsoft.EntityFrameworkCore;
+using VotingAPI.Services.Models;
 
 namespace VotingAPI.Services.Parties
 {
@@ -16,31 +17,60 @@ namespace VotingAPI.Services.Parties
 
         public Party FindParty(string name)
         {
-            var o = _contex.Parties.Find(name);
+            try
+            {
+                var o = _contex.Parties.Find(name);
 
-            return o;
+                return o;
+            }catch (Exception ex)
+            {
+                return null;
+            }
+            
         }
-        public Party AllParty(){
-            var o = _contex.Parties.Find();//error
-            return o;
+        public List<Party> AllParty(){
+            try
+            {
+                var o = _contex.Parties.ToList();
+
+                return o;
+            }catch(Exception ex)
+            {
+                return null;
+            }
+            
         }
 
         public Party AddParty(Party party)
         {
-            _contex.Parties.Add(party);
+            try
+            {
+                _contex.Parties.Add(party);
 
-            _contex.SaveChanges();
+                _contex.SaveChanges();
 
-            return _contex.Parties.Find(party.PName);
+                return _contex.Parties.Find(party.PName);
+
+            }catch(Exception ex)
+            {
+                return null;
+            }
+            
 
             
         }
-        public Party UpDateParty(Party party)
+        public void UpDateParty(PartyDto party)
         {
 
-            _contex.Entry(party).State = EntityState.Modified;
-            _contex.SaveChanges();
-            return _contex.Parties.Find(party.PName);
+            try
+            {
+                _contex.SaveChanges();
+            }catch(Exception ex)
+            {
+                System.Console.WriteLine(ex.Message);   
+            }
+            
+            //return _contex.Parties.Find(party.PName);
         }
 
 

@@ -11,7 +11,6 @@ namespace VotingAPI.Services.Candidates
     {
         public Candidate FindCandidate(string CID);
         public ICollection<Candidate> GetAllCandidate(string partyName);
-
-        public Candidate createCandidate(Candidate candidate);
+        public Task<Candidate> createCandidate(Candidate candidate);
     }
 }
