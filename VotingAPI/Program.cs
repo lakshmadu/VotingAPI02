@@ -7,6 +7,7 @@ using VotingAPI.Services.Candidates;
 using VotingAPI.Services.Parties;
 using VotingAPI.Services.Security;
 using VotingAPI.Services.Voters;
+using VotingAPI.Services.Admins;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +28,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<IVoterRepository, VoterSqlServerService>();
 builder.Services.AddScoped<IPartyRepository, PartySqlserverService>();
+builder.Services.AddScoped<IAdminRepository, AdminSqlServerServices>();
 
 builder.Services.AddScoped<ICandidateRepository, CandidateSqlServerService>();
 
@@ -64,8 +66,8 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    //app.UseCors(options =>
-    //options.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod());
+    app.UseCors(options =>
+    options.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod());
 }
 else
 {
