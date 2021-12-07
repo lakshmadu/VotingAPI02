@@ -8,6 +8,9 @@ using VotingAPI.Services.Parties;
 using VotingAPI.Services.Security;
 using VotingAPI.Services.Voters;
 using VotingAPI.Services.Admins;
+using VotingAPI.Services.GramaNiladaris;
+using VoingAPI;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,15 +24,21 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 var configuration = builder.Configuration;
 
+var server = configuration["DBServer"] ?? "sql1";
+var port = configuration["DBPort"] ?? "1433";
+var user = configuration["DBUser"] ?? "SA";
+var password = configuration["DBPassword"] ?? "#HexamTeam99";
+var database = configuration["Database"] ?? "VotingDB";
+
 builder.Services.AddDbContext<VotingDbContext>(options =>
-            options.UseSqlServer(configuration.GetConnectionString("Connection")));
+            options.UseSqlServer($"Server={server},{port};Initial Catalog={database};User ID={user};Password={password};"));
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<IVoterRepository, VoterSqlServerService>();
 builder.Services.AddScoped<IPartyRepository, PartySqlserverService>();
 builder.Services.AddScoped<IAdminRepository, AdminSqlServerServices>();
-
+builder.Services.AddScoped<IGramaNiladariRepository,GramaNiladariSqlServices>();
 builder.Services.AddScoped<ICandidateRepository, CandidateSqlServerService>();
 
 var tokenKey = configuration.GetValue<string>("TokenKey");
@@ -66,8 +75,8 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    app.UseCors(options =>
-    options.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod());
+    // app.UseCors(options =>
+    // options.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod());
 }
 else
 {
@@ -89,5 +98,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+PrepDB.PrepPopulation(app);
 
 app.Run();
