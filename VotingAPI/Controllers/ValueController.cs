@@ -13,7 +13,7 @@ namespace VotingAPI.Controllers
         [HttpGet]
         public  IEnumerable<string> Get()
         {
-            return new string[] { "Value01", "Value02","Lakshan Madhubashika","Ahamed Rashad","Waruni Imalsha" };
+            return new string[] { "Value01", "Value02","Value03","Lakshan Madhubashika","Ahamed Rashad","Waruni Imalsha" };
         }
 
         
