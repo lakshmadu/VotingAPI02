@@ -47,15 +47,15 @@ namespace VotingAPI.Services.Candidates
             
         }
 
-        public async Task<Candidate> createCandidate(Candidate candidate)
+        public Candidate createCandidate(Candidate candidate)
         {
             try
             {
-                await _context.Candidates.AddAsync(candidate);
+                _context.Candidates.Add(candidate);
 
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
 
-                return await _context.Candidates.FindAsync(candidate.CID);
+                return  _context.Candidates.Find(candidate.CID);
             }catch (Exception ex)
             {
                 return null;

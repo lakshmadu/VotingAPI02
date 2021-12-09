@@ -23,8 +23,8 @@ builder.Services.AddCors(options=>
     options.AddDefaultPolicy(builder =>
     {
         builder.WithOrigins("http://localhost:3000")
-        .WithHeaders("application/json","Authorization")
-        .WithMethods("GET","POST","PUT","DELETE");
+        .AllowAnyHeader()
+        .AllowAnyMethod();
     });
 });
 
